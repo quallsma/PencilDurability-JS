@@ -6,6 +6,13 @@ export class Pencil {
     }
 
     write(text) {
+        for(let index = 0; index < text.length; index++){
+            if(this.isWhiteSpaceOrNewLine(text[index]))
+                continue;
+
+            this.isUpperCase(text[index]) ? this.pointDurability -= 2 : this.pointDurability--;
+        }
+
         this.paper.addText(text);
     }
 
@@ -15,6 +22,14 @@ export class Pencil {
 
     getPointDurability() {
         return this.pointDurability;
+    }
+
+    isWhiteSpaceOrNewLine(char){
+        return char == ' ' || char == '\n';
+    }
+
+    isUpperCase(char){
+        return char == char.toUpperCase();
     }
 }
 

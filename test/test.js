@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Pencil, Paper } from '../src/main';
 
 describe('Pencil', () => {
-    describe('Write Method', () => {
+    describe('Writes', () => {
         it('should write text on paper', () => {
             var paper = new Paper();
             var pencil = new Pencil(paper);
@@ -18,12 +18,33 @@ describe('Pencil', () => {
     
 
     describe('Point Durability', () => {
-        it('should not be affected by white spaces', () => {
-            var pencil = new Pencil(new Paper(), 4);
+        let pencil;
+        beforeEach(function() {
+            pencil = new Pencil(new Paper(), 4);
+        });
 
+        it('should decrease by one with lowercase letters', () => {
+            pencil.write('t');
+
+            expect(pencil.getPointDurability(), 'lower case').to.equal(3);
+        });
+
+        it('should decrease by two with capital letters', () => {
+            pencil.write('T');
+
+            expect(pencil.getPointDurability(), 'upper case').to.equal(2);
+        });
+
+        it('should not be affected by white spaces', () => {
             pencil.write(' ');
 
             expect(pencil.getPointDurability(), 'White spaces').to.equal(4);
+        });
+
+        it('should not be affected by new line', () => {
+            pencil.write('\n');
+
+            expect(pencil.getPointDurability(), 'New Line').to.equal(4);
         });
     });
 });
