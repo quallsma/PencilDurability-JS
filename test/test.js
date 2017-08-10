@@ -46,5 +46,38 @@ describe('Pencil', () => {
 
             expect(pencil.getPointDurability(), 'New Line').to.equal(4);
         });
+
+        it('should be fully degraded before writing is completed', () => {
+            pencil.write('Text');
+
+            expect(pencil.getPointDurability(), 'Case 1').to.equal(0);
+            expect(pencil.getPaperText(), 'Caes 2').to.equal("Tex");
+        });
+    });
+
+    describe('Sharpen', () => {
+        let pencil;
+        beforeEach(function() {
+            pencil = new Pencil(new Paper(), 0, 1);
+        });
+
+        it('should restore point durabilty to maximum', () => {
+            pencil.sharpen();
+
+            expect(pencil.getPointDurability()).to.equal(40000);
+        });
+
+        it('should decrease length of pencil by one', () => {
+            pencil.sharpen();
+
+            expect(pencil.getLength()).to.equal(0);
+        });
+
+        it('should not restore point durability when pencil is too short', () => {
+            pencil = new Pencil(new Paper(), 0, 0);
+            pencil.sharpen();
+
+            expect(pencil.getPointDurability()).to.equal(0);
+        });
     });
 });
