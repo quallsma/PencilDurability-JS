@@ -1,7 +1,8 @@
 export class Pencil {
 
-    constructor(paper){
+    constructor(paper, pointDurability){
         this.paper = paper;
+        this.pointDurability = pointDurability;
     }
 
     write(text) {
@@ -10,6 +11,10 @@ export class Pencil {
 
     getPaperText() {
         return this.paper.text;
+    }
+
+    getPointDurability() {
+        return this.pointDurability;
     }
 }
 
