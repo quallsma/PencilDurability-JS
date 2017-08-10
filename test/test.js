@@ -59,25 +59,33 @@ describe('Pencil', () => {
         let pencil;
         beforeEach(function() {
             pencil = new Pencil(new Paper(), 0, 1);
+            pencil.sharpen();
         });
 
         it('should restore point durabilty to maximum', () => {
-            pencil.sharpen();
-
             expect(pencil.getPointDurability()).to.equal(40000);
         });
 
         it('should decrease length of pencil by one', () => {
-            pencil.sharpen();
-
             expect(pencil.getLength()).to.equal(0);
         });
 
         it('should not restore point durability when pencil is too short', () => {
-            pencil = new Pencil(new Paper(), 0, 0);
+            pencil.write('Text');
             pencil.sharpen();
 
-            expect(pencil.getPointDurability()).to.equal(0);
+            expect(pencil.getPointDurability()).to.equal(39995);
+        });
+    });
+
+    describe('Erase', () => {
+        let pencil;
+        beforeEach(function() {
+            pencil = new Pencil(new Paper(), undefined, 1);
+        });
+
+        it('', () => {
+
         });
     });
 });
