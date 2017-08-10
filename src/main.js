@@ -19,6 +19,19 @@ export class Pencil {
         this.length--;
     }
 
+    erase(text){
+        let spaces = ' '.repeat(text.length);
+        let words = this.paper.text.split(' ');
+        for (let x = words.length - 1; x >= 0; x--){
+            if (words[x].search(text) > -1){
+                words[x] = words[x].replace(text, spaces);
+                break;
+            }
+        }
+
+        this.paper.text = words.join(' ');
+    }
+
     getPaperText() {
         return this.paper.text;
     }

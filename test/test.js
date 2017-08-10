@@ -81,11 +81,18 @@ describe('Pencil', () => {
     describe('Erase', () => {
         let pencil;
         beforeEach(function() {
-            pencil = new Pencil(new Paper(), undefined, 1);
+            pencil = new Pencil(new Paper(), 40000, 100);
+            pencil.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
         });
 
-        it('', () => {
+        it('should erase last occurance of the text, and replace with whitespace', () => {
+            pencil.erase('chuck');
 
+            expect(pencil.getPaperText()).to.equal('How much wood would a woodchuck chuck if a woodchuck could       wood?');
+
+            pencil.erase('chuck');
+
+            expect(pencil.getPaperText()).to.equal('How much wood would a woodchuck chuck if a wood      could       wood?');
         });
     });
 });
