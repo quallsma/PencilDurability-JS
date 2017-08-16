@@ -3,10 +3,10 @@ import sinon from 'sinon';
 import { Pencil, Paper } from '../src/main';
 
 describe('Pencil', () => {
+    let pencil;
     describe('Writes', () => {
         it('should write text on paper', () => {
-            var paper = new Paper();
-            var pencil = new Pencil(paper);
+            pencil = new Pencil(new Paper());
 
             pencil.write('She sells sea shells');
             expect(pencil.getPaperText(), 'First Test').to.equal('She sells sea shells');
@@ -18,8 +18,7 @@ describe('Pencil', () => {
     
 
     describe('Point Durability', () => {
-        let pencil;
-        beforeEach(function() {
+        beforeEach(() =>  {
             pencil = new Pencil(new Paper(), 4);
         });
 
@@ -56,8 +55,7 @@ describe('Pencil', () => {
     });
 
     describe('Sharpen', () => {
-        let pencil;
-        beforeEach(function() {
+        beforeEach(() =>  {
             pencil = new Pencil(new Paper(), 0, 1);
             pencil.sharpen();
         });
@@ -66,7 +64,7 @@ describe('Pencil', () => {
             expect(pencil.getPointDurability()).to.equal(40000);
         });
 
-        it('should decrease length of pencil by one', () => {
+        it('should decrease length of pencil', () => {
             expect(pencil.getLength()).to.equal(0);
         });
 
@@ -79,20 +77,38 @@ describe('Pencil', () => {
     });
 
     describe('Erase', () => {
-        let pencil;
-        beforeEach(function() {
+        beforeEach(() =>  {
             pencil = new Pencil(new Paper(), 40000, 100);
             pencil.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
         });
 
-        it('should erase last occurance of the text, and replace with whitespace', () => {
+        it('should erase last occurance of the text, and replace with whitespaces', () => {
             pencil.erase('chuck');
-
             expect(pencil.getPaperText()).to.equal('How much wood would a woodchuck chuck if a woodchuck could       wood?');
 
             pencil.erase('chuck');
-
             expect(pencil.getPaperText()).to.equal('How much wood would a woodchuck chuck if a wood      could       wood?');
         });
+    });
+
+    describe('Eraser Durability', () => {
+        it('should decrease by one per character', () => {
+            pencil = new Pencil(new Paper(), 40000, 100, 10);
+            pencil.write('I sat');
+            pencil.erase('sat');
+            expect(pencil.getEraserDurability()).to.equal(7);
+        });
+
+        it('should not be affected by whitespaces', () => {
+            pencil = new Pencil(new Paper(), 40000, 100, 10);
+            pencil.write('I sat');
+            pencil.erase(' sat');
+            expect(pencil.getEraserDurability()).to.equal(7);
+        });
+
+    });
+
+    describe('Editing', () => {
+
     });
 });
