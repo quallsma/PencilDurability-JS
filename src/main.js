@@ -1,3 +1,5 @@
+import { Paper } from './Paper';
+
 export class Pencil {
     constructor(paper, pointDurability, pencilLength, eraserDurability){
         this.paper = paper;
@@ -79,15 +81,5 @@ export class Pencil {
 
     isPencilTooShort(){
         return this.length == this.MINIMUM_PENCIL_LENGTH;
-    }
-}
-
-export class Paper {
-    constructor(){
-        this.text = '';
-    }
-
-    addText(text){
-        this.text += text;
     }
 }

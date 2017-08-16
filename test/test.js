@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { Pencil, Paper } from '../src/main';
+import { Pencil } from '../src/main';
+import { Paper } from '../src/Paper'
 
 describe('Pencil', () => {
     let pencil;
