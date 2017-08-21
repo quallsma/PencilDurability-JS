@@ -107,6 +107,13 @@ describe('Pencil', () => {
             expect(pencil.getEraserDurability()).to.equal(7);
         });
 
+        it('should erase in opposite order', () => {
+            pencil = new Pencil(new Paper(), 40000, 100, 3);
+            pencil.write('Buffalo Bill');
+            pencil.erase('Bill');
+            expect(pencil.getEraserDurability()).to.equal(0);
+            expect(pencil.getPaperText()).to.equal('Buffalo B   ');
+        });
     });
 
     describe('Editing', () => {

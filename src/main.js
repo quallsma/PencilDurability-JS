@@ -24,8 +24,15 @@ export class Pencil {
 
     erase(text){
         let wordsArray = this.paper.text.split(' ');
-        this.paper.text = this.findAndReplaceWithSpaces(text, wordsArray).join(' ');
-        this.eraserDurability -= text.trim().length;
+
+        if(this.isEraserDurabilityNotEnough(text)){
+            text = this.getTextToErase(text);
+            this.paper.text = this.findAndReplaceWithSpaces(text, wordsArray).join(' ');
+            this.eraserDurability = 0;
+        } else {
+            this.eraserDurability -= text.trim().length;
+            this.paper.text = this.findAndReplaceWithSpaces(text, wordsArray).join(' ');
+        }
     }
 
     findAndReplaceWithSpaces(text, words) {
@@ -70,6 +77,13 @@ export class Pencil {
         }
         return textToPaper;
     }
+    
+    getTextToErase(text) {
+        for(let num = text.trim().length - this.eraserDurability; num > 0; num--){
+            text = text.substring(1);
+        }
+        return text;
+    }
 
     isWhiteSpaceOrNewLine(char){
         return char == ' ' || char == '\n';
@@ -81,5 +95,9 @@ export class Pencil {
 
     isPencilTooShort(){
         return this.length == this.MINIMUM_PENCIL_LENGTH;
+    }
+
+    isEraserDurabilityNotEnough(text){
+        return this.eraserDurability < text.trim().length;
     }
 }
