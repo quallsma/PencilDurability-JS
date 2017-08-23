@@ -124,8 +124,8 @@ describe('Pencil', () => {
             
             expect(pencil.getPaperText()).to.equal('An onion a day keeps the doctor away');
         });
-        
-        it('should replace occupied index with "@"', () => {
+
+        it('if new text is longer than allocated whitespace, character collision should be replaced with "@"', () => {
             pencil = new Pencil(new Paper(), 40000, 100, 100);
             pencil.write('An       a day keeps the doctor away');
             pencil.edit('artichoke');
