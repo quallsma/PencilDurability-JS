@@ -117,6 +117,20 @@ describe('Pencil', () => {
     });
 
     describe('Editing', () => {
+        it('should replace gap with text', () => {
+            pencil = new Pencil(new Paper(), 40000, 100, 100);
+            pencil.write('An       a day keeps the doctor away');
+            pencil.edit('onion');
+            
+            expect(pencil.getPaperText()).to.equal('An onion a day keeps the doctor away');
+        });
+        
+        it('should replace occupied index with "@"', () => {
+            pencil = new Pencil(new Paper(), 40000, 100, 100);
+            pencil.write('An       a day keeps the doctor away');
+            pencil.edit('artichoke');
 
+            expect(pencil.getPaperText()).to.equal('An artich@k@ay keeps the doctor away');
+        });
     });
 });

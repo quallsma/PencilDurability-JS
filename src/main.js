@@ -35,6 +35,16 @@ export class Pencil {
         }
     }
 
+    edit(text){
+        let index = this.paper.text.indexOf('  ');
+        for(let x = 0; x < text.length ; x++)
+            this.paper.text = this.replaceCharAtIndex(index + 1 + x, text.charAt(x));
+    }
+
+    replaceCharAtIndex(letterIndex, replacement){
+        return this.paper.text.substr(0, letterIndex) + this.getReplacement(letterIndex, replacement) + this.paper.text.substr(letterIndex + 1);    
+    }
+
     findAndReplaceWithSpaces(text, words) {
         for (let x = words.length - 1; x >= 0; x--){
             if (words[x].search(text) > -1){
@@ -43,6 +53,12 @@ export class Pencil {
             }
         }
         return words;
+    }
+
+    getReplacement(letterIndex, replacement) {
+        if(this.paper.text[letterIndex] !== ' ')
+            replacement = '@';
+        return replacement;
     }
 
     getPaperText() {
